@@ -52,3 +52,19 @@ Los 303 registros no representan una muestra poblacional. Este ejercicio **no es
 ### Referencia de los datos
 
 Janosi A, Steinbrunn W, Pfisterer M, Detrano R. *Heart Disease*. UCI Machine Learning Repository. 1989. https://doi.org/10.24432/C52P4X
+
+## Verificación adicional para el tribunal
+
+Tras ejecutar el análisis, ejecute:
+
+```bash
+python verificar_resultados.py
+```
+
+Este comprobador independiente comprueba que existen los siete gráficos, los dos archivos de resultados y los indicadores publicados (303 casos, partición 242/61, matriz de confusión, exactitud, sensibilidad, especificidad y AUC). Si algún resultado no coincide, falla con un error y muestra la comprobación que falló.
+
+### Ejecución automática en GitHub
+
+En [Actions](https://github.com/JoRex-bot/TFM-Heart-Disease/actions), seleccione **Verificar reproducibilidad del TFM**. El flujo también se ejecuta al actualizar `main`. Si está habilitado en la configuración del repositorio, puede seleccionarse **Run workflow** para repetir la evaluación sobre Ubuntu con Python 3.11. El flujo instala dependencias, ejecuta el modelo, verifica las métricas y publica un artefacto `resultados-tfm` con las figuras, el JSON y el informe para su inspección. La disponibilidad de GitHub Actions depende de la configuración del repositorio y de la plataforma.
+
+**No es una aplicación web:** el proyecto es un script reproducible de investigación académica. Para evaluarlo, descargue el repositorio y ejecute los dos comandos anteriores. No solicita credenciales, no utiliza datos clínicos identificables y no toma decisiones asistenciales.
