@@ -1,0 +1,40 @@
+name: Verificar reproducibilidad del TFM
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  reproducir:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Obtener el codigo publico
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Instalar bibliotecas
+        run: python -m pip install -r requirements.txt
+
+      - name: Ejecutar analisis completo
+        run: python TFM_Proyecto1_analisis.py > salida_ejecucion.json
+
+      - name: Verificar indicadores y figuras
+        run: python verificar_resultados.py
+
+      - name: Publicar salidas para revision del tribunal
+        uses: actions/upload-artifact@v4
+        with:
+          name: resultados-tfm
+          path: |
+            Figuras_TFM/
+            TFM_Resultados_EDA.json
+            TFM_Borrador_EDA_y_Modelos.md
